@@ -1,5 +1,3 @@
-* text=auto
-
 /.gitattributes export-ignore
 /tests export-ignore
 /docs export-ignore
