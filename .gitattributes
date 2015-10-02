@@ -1,9 +1,8 @@
 * text=auto
 
-/.gitattributes export-ignore
+/.git* export-ignore
 /tests export-ignore
 /docs export-ignore
 /.sensiolabs.yml export-ignore
 /.travis.yml export-ignore
-/phpunit.cnf.ini export-ignore
-/phpunit.xml export-ignore
+/phpunit.* export-ignore
