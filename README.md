@@ -1,4 +1,4 @@
-# # AloFramework | Common #
+# AloFramework | Common #
 
 Common components of AloFramework
 
