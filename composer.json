@@ -26,9 +26,6 @@
   "require": {
     "php": ">=5.4"
   },
-  "suggest": {
-    "aloframework/aloframework": "The complete stack with all the components"
-  },
   "autoload": {
     "psr-4": {
       "AloFramework\\Common\\": "src"
