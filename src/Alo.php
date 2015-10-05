@@ -5,6 +5,7 @@
     /**
      * Static common component container
      * @author Art <a.molcanovas@gmail.com>
+     * @since  1.1 ifundefined() added
      */
     abstract class Alo {
 
@@ -103,6 +104,20 @@
             $v = $useNullget ? self::nullget($var) : self::get($var);
 
             return $v !== null ? $v : $planB;
+        }
+
+        /**
+         * Returns the value of the constant with the name of $const if it's defined, $planB if it's not
+         * @author Art <a.molcanovas@gmail.com>
+         *
+         * @param string $const Constant name
+         * @param mixed  $planB What to return if $const isn't defined
+         *
+         * @return mixed
+         * @since  1.1
+         */
+        static function ifundefined($const, $planB) {
+            return defined($const) ? constant($const) : $planB;
         }
 
         /**

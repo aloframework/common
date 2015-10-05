@@ -92,4 +92,28 @@
                     [__DIR__, false],
                     ['/nonexistent/' . mt_rand(~PHP_INT_MAX, PHP_INT_MAX), false]];
         }
+
+        function testIfundefined() {
+            $const1 = self::generateConstName();
+            $const2 = self::generateConstName();
+            $planB  = 'bar';
+
+            while (defined($const1)) {
+                $const1 = self::generateConstName();
+            }
+
+            while (defined($const2)) {
+                $const2 = self::generateConstName();
+            }
+
+            define($const1, 'foo');
+
+            $this->assertEquals(constant($const1), Alo::ifundefined($const1, $planB));
+            $this->assertEquals($planB, Alo::ifundefined($const2, $planB));
+        }
+
+        private static function generateConstName() {
+            return hash('sha512',
+                        mt_rand(~PHP_INT_MAX, PHP_INT_MAX) . uniqid(mt_rand(~PHP_INT_MAX, PHP_INT_MAX), true));
+        }
     }
