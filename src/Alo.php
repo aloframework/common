@@ -126,6 +126,6 @@
          * @return bool
          */
         static function isAjaxRequest() {
-            return strtolower(self::get($_SERVER['HTTP_X_REQUESTED_WITH'])) == 'xmlhttprequest';
+            return self::get($_SERVER['HTTP_X_REQUESTED_WITH']) == 'XMLHttpRequest';
         }
     }
