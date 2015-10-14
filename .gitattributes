@@ -7,3 +7,5 @@
 /.travis.yml export-ignore
 /phpunit.* export-ignore
 /CHANGELOG.md export-ignore
+/apigen.neon export-ignore
+/coverage export-ignore

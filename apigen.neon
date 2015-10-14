@@ -1,0 +1,37 @@
+# Source file or directory to parse
+source: 'src'
+# Directory where to save the generated documentation
+destination: 'docs'
+# List of allowed file extensions
+extensions: [php]
+# Character set of source files
+charset: [utf-8]
+
+templateTheme: bootstrap
+
+# Title of generated documentation
+title: 'AloFramework Common Components 1.1 API'
+# Grouping of classes
+groups: auto
+
+# Generate documentation for methods and properties with given access level
+accessLevels: [public, protected]
+# Generate documentation for elements marked as internal and display internal documentation parts
+internal: No
+# Generate documentation for PHP internal classes
+php: Yes
+# Generate tree view of classes, interfaces and exceptions
+tree: Yes
+# Generate documentation for deprecated classes, methods, properties and constants
+deprecated: Yes
+# Generate documentation of tasks
+todo: Yes
+# Generate highlighted source code files
+noSourceCode: Yes
+# Add a link to download documentation as a ZIP archive
+download: No
+
+# Don't display scanning and generating messages
+quiet: No
+# Display additional information in case of an error
+debug: Yes
