@@ -147,6 +147,21 @@
             $this->assertEquals(new \ArrayObject($arrClean), Alo::unXss(new \ArrayObject($arrRaw)));
         }
 
+        function testAsciiRand() {
+            $alphanum    = Alo::asciiRand(1000, Alo::ASCII_ALPHANUM);
+            $nonalphanum = Alo::asciiRand(1000, Alo::ASCII_NONALPHANUM);
+            $all         = Alo::asciiRand(1000, Alo::ASCII_ALL);
+
+            $this->assertEquals(1000, strlen($alphanum));
+            $this->assertEquals(1, preg_match('~^[a-z0-9]+$~i', $alphanum));
+            $this->assertEquals(0, preg_match('~^[a-z0-9]+$~i', $nonalphanum));
+            $this->assertEquals([1, 1], [preg_match('~[a-z0-9]+~i', $all), preg_match('~[^a-z0-9]+~i', $all)]);
+        }
+
+        function testIsRegularRequest() {
+            $this->assertFalse(Alo::isRegularRequest());
+        }
+
         private static function generateConstName() {
             return hash('sha512',
                         mt_rand(~PHP_INT_MAX, PHP_INT_MAX) . uniqid(mt_rand(~PHP_INT_MAX, PHP_INT_MAX), true));

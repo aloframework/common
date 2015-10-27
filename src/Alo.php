@@ -7,10 +7,137 @@
     /**
      * Static common component container
      * @author Art <a.molcanovas@gmail.com>
-     * @since  1.2 getFingerprint(), isTraversable(), unXss() added<br/>
+     * @since  1.3 getUniqid(), asciiRand(), isRegularRequest() added<br/>
+     *         1.2 getFingerprint(), isTraversable(), unXss() added<br/>
      *         1.1 ifundefined() added
      */
     abstract class Alo {
+
+        /**
+         * Defines the ascii charset subset as "the entire set"
+         *
+         * @var int
+         */
+        const ASCII_ALL = 0;
+
+        /**
+         * Defines the ascii charset subset as "only alphanumeric"
+         *
+         * @var int
+         */
+        const ASCII_ALPHANUM = 1;
+
+        /**
+         * Defines the ascii charset subset as "only non-alphanumeric"
+         *
+         * @var int
+         */
+        const ASCII_NONALPHANUM = 2;
+
+        /**
+         * Array of ASCII alphanumeric characters
+         *
+         * @var array
+         */
+        private static $asciiAlphanum = ['a',
+                                         'b',
+                                         'c',
+                                         'd',
+                                         'e',
+                                         'f',
+                                         'g',
+                                         'h',
+                                         'i',
+                                         'j',
+                                         'k',
+                                         'l',
+                                         'm',
+                                         'n',
+                                         'o',
+                                         'p',
+                                         'q',
+                                         'r',
+                                         's',
+                                         't',
+                                         'u',
+                                         'v',
+                                         'w',
+                                         'x',
+                                         'y',
+                                         'z',
+                                         'A',
+                                         'B',
+                                         'C',
+                                         'D',
+                                         'E',
+                                         'F',
+                                         'G',
+                                         'H',
+                                         'I',
+                                         'J',
+                                         'K',
+                                         'L',
+                                         'M',
+                                         'N',
+                                         'O',
+                                         'P',
+                                         'Q',
+                                         'R',
+                                         'S',
+                                         'T',
+                                         'U',
+                                         'V',
+                                         'W',
+                                         'X',
+                                         'Y',
+                                         'Z',
+                                         0,
+                                         1,
+                                         2,
+                                         3,
+                                         4,
+                                         5,
+                                         6,
+                                         7,
+                                         8,
+                                         9];
+        /**
+         * The rest of the ASCII charset
+         *
+         * @var array
+         */
+        private static $asciNonAlphanum = [' ',
+                                           '!',
+                                           '"',
+                                           '#',
+                                           '$',
+                                           '%',
+                                           '\'',
+                                           '(',
+                                           ')',
+                                           '*',
+                                           '+',
+                                           ',',
+                                           '.',
+                                           '/',
+                                           ':',
+                                           ';',
+                                           '<',
+                                           '=',
+                                           '>',
+                                           '?',
+                                           '@',
+                                           '[',
+                                           '\\',
+                                           ']',
+                                           '^',
+                                           '_',
+                                           '`',
+                                           '-',
+                                           '{',
+                                           '|',
+                                           '}',
+                                           '~'];
 
         /**
          * Includes a file if it exists
@@ -28,6 +155,76 @@
             }
 
             return false;
+        }
+
+        /**
+         * Generates a string of random ASCII characters
+         *
+         * @author Art <a.molcanovas@gmail.com>
+         *
+         * @param int $length The length of the string
+         * @param int $subset Which subset to use - see class' ASCII_* constants
+         *
+         * @return string
+         * @since  1.3
+         */
+        static function asciiRand($length, $subset = self::ASCII_ALL) {
+            switch ($subset) {
+                case self::ASCII_ALPHANUM:
+                    $subset = self::$asciiAlphanum;
+                    break;
+                case self::ASCII_NONALPHANUM:
+                    $subset = self::$asciNonAlphanum;
+                    break;
+                default:
+                    $subset = array_merge(self::$asciiAlphanum, self::$asciNonAlphanum);
+            }
+
+            $count = count($subset) - 1;
+
+            $r = '';
+
+            for ($i = 0; $i < $length; $i++) {
+                $r .= $subset[mt_rand(0, $count)];
+            }
+
+            return $r;
+        }
+
+        /**
+         * Generates a unique identifier
+         *
+         * @author Art <a.molcanovas@gmail.com>
+         *
+         * @param string $hash      Hash algorithm
+         * @param string $prefix    Prefix for the identifier
+         * @param int    $entropy   Number of pseudo bytes used in entropy
+         * @param bool   $rawOutput When set to true, outputs raw binary data. false outputs lowercase hexits.
+         *
+         * @return string
+         * @see    https://secure.php.net/manual/en/function.hash.php
+         * @since  1.3
+         * @codeCoverageIgnore
+         */
+        static function getUniqid($hash = 'sha256', $prefix = '', $entropy = 250, $rawOutput = false) {
+            $str = mt_rand(PHP_INT_MIN, PHP_INT_MAX) . json_encode([$_COOKIE,
+                                                                    $_REQUEST,
+                                                                    $_FILES,
+                                                                    $_ENV,
+                                                                    $_GET,
+                                                                    $_POST,
+                                                                    $_SERVER]) . uniqid($prefix, true) .
+                   self::asciiRand($entropy, self::ASCII_ALL);
+
+            if (function_exists('\openssl_random_pseudo_bytes')) {
+                $str .= \openssl_random_pseudo_bytes($entropy);
+            } else {
+                trigger_error('The openssl extension is not enabled, therefore the unique ID is not ' .
+                              'cryptographically secure.',
+                              E_USER_WARNING);
+            }
+
+            return hash($hash, $str, $rawOutput);
         }
 
         /**
@@ -67,6 +264,16 @@
          */
         static function isCliRequest() {
             return PHP_SAPI == 'cli' || defined('STDIN');
+        }
+
+        /**
+         * Checks if the request is non-ajax and non-CLI
+         * @author Art <a.molcanovas@gmail.com>
+         * @return bool
+         * @since  1.3
+         */
+        static function isRegularRequest() {
+            return !self::isAjaxRequest() && !self::isCliRequest();
         }
 
         /**

@@ -1,3 +1,7 @@
+# 1.3 #
+
+getUniqid(), asciiRand(), isRegularRequest() added
+
 # 1.2 #
 
 Added unXss(), getFingerprint() and isTraversable()

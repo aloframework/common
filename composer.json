@@ -26,6 +26,9 @@
   "require": {
     "php": ">=5.4"
   },
+  "suggests": {
+    "ext-openssl": "Makes randomiser functions cryptographically secure"
+  },
   "autoload": {
     "psr-4": {
       "AloFramework\\Common\\": "src"
