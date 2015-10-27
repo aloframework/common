@@ -10,7 +10,7 @@ charset: [utf-8]
 templateTheme: bootstrap
 
 # Title of generated documentation
-title: 'AloFramework Common Components 1.1 API'
+title: 'AloFramework Common Components 1.2 API'
 # Grouping of classes
 groups: auto
 
