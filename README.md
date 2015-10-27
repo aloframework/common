@@ -2,7 +2,7 @@
 
 Common components of AloFramework
 
-[![License](https://poser.pugx.org/aloframework/common/license?format=plastic)](LICENSE)
+[![License](https://poser.pugx.org/aloframework/common/license?format=plastic)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 [![Latest Stable Version](https://poser.pugx.org/aloframework/common/v/stable?format=plastic)](https://packagist.org/packages/aloframework/common)
 [![Total Downloads](https://poser.pugx.org/aloframework/common/downloads?format=plastic)](https://packagist.org/packages/aloframework/common)
 

@@ -1,3 +1,7 @@
+# 1.2 #
+
+Added unXss(), getFingerprint() and isTraversable()
+
 # 1.1.1 #
 
 Fixed a bug with isAjaxRequest()

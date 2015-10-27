@@ -112,6 +112,41 @@
             $this->assertEquals($planB, Alo::ifundefined($const2, $planB));
         }
 
+        /** @dataProvider isTraversableDataProvider */
+        function testIsTraversable($input, $expected) {
+            $this->assertEquals($expected, Alo::isTraversable($input));
+        }
+
+        function testGetFingerprint() {
+            $default = Alo::getFingerprint();
+            $this->assertEquals(64, strlen($default));
+            $this->assertEquals(128, strlen(Alo::getFingerprint('sha512')));
+            $this->assertEquals($default, Alo::getFingerprint('sha256'));
+        }
+
+        function isTraversableDataProvider() {
+            return [['foo', false],
+                    [1.1, false],
+                    [new \stdClass(), false],
+                    [[], true],
+                    [new \ArrayObject(), true]];
+        }
+
+        function testUnXSS() {
+            $strRaw   = '"foo"&\'bar\'';
+            $strClean = '&quot;foo&quot;&amp;&apos;bar&apos;';
+            $arrRaw   = ['one' => $strRaw,
+                         'two' => $strRaw];
+            $arrClean = ['one' => $strClean,
+                         'two' => $strClean];
+
+            $this->assertEquals(new \stdClass(), Alo::unXss(new \stdClass()));
+            $this->assertEquals('foo', Alo::unXss('foo'));
+            $this->assertEquals($strClean, Alo::unXss($strRaw));
+            $this->assertEquals($arrClean, Alo::unXss($arrRaw));
+            $this->assertEquals(new \ArrayObject($arrClean), Alo::unXss(new \ArrayObject($arrRaw)));
+        }
+
         private static function generateConstName() {
             return hash('sha512',
                         mt_rand(~PHP_INT_MAX, PHP_INT_MAX) . uniqid(mt_rand(~PHP_INT_MAX, PHP_INT_MAX), true));
