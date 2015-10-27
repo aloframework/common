@@ -2,10 +2,13 @@
 
     namespace AloFramework\Common;
 
+    use Traversable;
+
     /**
      * Static common component container
      * @author Art <a.molcanovas@gmail.com>
-     * @since  1.1 ifundefined() added
+     * @since  1.2 getFingerprint(), isTraversable(), unXss() added<br/>
+     *         1.1 ifundefined() added
      */
     abstract class Alo {
 
@@ -127,5 +130,61 @@
          */
         static function isAjaxRequest() {
             return self::get($_SERVER['HTTP_X_REQUESTED_WITH']) == 'XMLHttpRequest';
+        }
+
+        /**
+         * Returns a hashed browser fingerprint
+         *
+         * @author Art <a.molcanovas@gmail.com>
+         *
+         * @param string $hashAlgo Hash algorithm to use
+         *
+         * @return string
+         * @since  1.2
+         */
+        static function getFingerprint($hashAlgo = 'sha256') {
+            return hash($hashAlgo,
+                        '#QramRAN7*s%6n%@x*53jVVPsnrz@5MY$49o^mhJ8HqY%3a09yJnSWg9lBl$O4CKUb&&S%EgYBjhUZEbhquw$keCjR6I%zMcA!Qr' .
+                        self::get($_SERVER['HTTP_USER_AGENT']) .
+                        'OE2%fWaZh4jfZPiNXKmHfUw6ok6Z0s#PInaFa8&o#xh#nVyaFaXHPUcv^2y579PnYr5AOs6Zqb!QTAZCgRR968*%QxKc^XNuYYM8' .
+                        self::get($_SERVER['HTTP_DNT']) .
+                        '%CwyJJ^GAooDl&o0mc%7zbWlD^6tWoNSN&m3cKxWLP8kiBqO!j2PM5wACzyOoa^t7AEJ#FlDT!BMtD$luy%2iZejMVzktaiftpg*' .
+                        self::get($_SERVER['HTTP_ACCEPT_LANGUAGE']) .
+                        'tep!uTwVXk1CedJq0osEI7p&XCxnC3ipGDWEpTXULEg8J!K1NJSxe4GPor$R3OOb**ZjzPN$$SOHe4ZDcQWQULdtT&XxP2!YYxZy');
+        }
+
+        /**
+         * Checks if the variable is usable in a foreach loop
+         * @author Art <a.molcanovas@gmail.com>
+         *
+         * @param mixed $input The variable
+         *
+         * @return bool
+         * @since  1.2
+         */
+        static function isTraversable($input) {
+            return is_array($input) || $input instanceof Traversable;
+        }
+
+        /**
+         * Protects the input from cross-site scripting attacks
+         * @author Art <a.molcanovas@gmail.com>
+         *
+         * @param string|array|Traversable $input The scalar input, or an array/Traversable
+         *
+         * @return string|array|Traversable The escaped string. If an array or traversable was passed on, the input
+         * withall its applicable values escaped.
+         * @since  1.2
+         */
+        static function unXss($input) {
+            if (self::isTraversable($input)) {
+                foreach ($input as &$i) {
+                    $i = self::unXss($i);
+                }
+            } elseif (is_scalar($input)) {
+                $input = htmlspecialchars($input, ENT_QUOTES | ENT_HTML5);
+            }
+
+            return $input;
         }
     }
