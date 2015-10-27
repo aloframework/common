@@ -207,13 +207,13 @@
          * @codeCoverageIgnore
          */
         static function getUniqid($hash = 'sha256', $prefix = '', $entropy = 250, $rawOutput = false) {
-            $str = mt_rand(PHP_INT_MIN, PHP_INT_MAX) . json_encode([$_COOKIE,
-                                                                    $_REQUEST,
-                                                                    $_FILES,
-                                                                    $_ENV,
-                                                                    $_GET,
-                                                                    $_POST,
-                                                                    $_SERVER]) . uniqid($prefix, true) .
+            $str = mt_rand(~PHP_INT_MAX, PHP_INT_MAX) . json_encode([$_COOKIE,
+                                                                     $_REQUEST,
+                                                                     $_FILES,
+                                                                     $_ENV,
+                                                                     $_GET,
+                                                                     $_POST,
+                                                                     $_SERVER]) . uniqid($prefix, true) .
                    self::asciiRand($entropy, self::ASCII_ALL);
 
             if (function_exists('\openssl_random_pseudo_bytes')) {

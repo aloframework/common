@@ -1,3 +1,7 @@
+# 1.3.1 #
+
+Fixed a bug in getUniqid() which tried to use a nonexistent constant
+
 # 1.3 #
 
 getUniqid(), asciiRand(), isRegularRequest() added
