@@ -381,7 +381,8 @@
          *
          * @return string|array|Traversable The escaped string. If an array or traversable was passed on, the input
          * withall its applicable values escaped.
-         * @since  1.2
+         * @since  1.3.2 ENT_SUBSTITUTE added<br/>
+         *         1.2
          */
         static function unXss($input) {
             if (self::isTraversable($input)) {
@@ -389,7 +390,7 @@
                     $i = self::unXss($i);
                 }
             } elseif (is_scalar($input)) {
-                $input = htmlspecialchars($input, ENT_QUOTES | ENT_HTML5);
+                $input = htmlspecialchars($input, ENT_QUOTES | ENT_HTML5 | ENT_SUBSTITUTE);
             }
 
             return $input;

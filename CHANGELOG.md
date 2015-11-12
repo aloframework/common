@@ -1,3 +1,7 @@
+# 1.3.2 #
+
+ENT_SUBSTITUTE added to Alo::unXss() 
+
 # 1.3.1 #
 
 Fixed a bug in getUniqid() which tried to use a nonexistent constant
