@@ -1,3 +1,10 @@
+# 1.3.3 #
+
+The following happened to getUniqid():
+
+Default $entropy value set to 10000, a warning is triggered if openssl_random_pseudo_bytes is unable to locate a 
+cryptographically strong algorithm.
+
 # 1.3.2 #
 
 ENT_SUBSTITUTE added to Alo::unXss() 
