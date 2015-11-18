@@ -203,10 +203,13 @@
          *
          * @return string
          * @see    https://secure.php.net/manual/en/function.hash.php
-         * @since  1.3
+         * @see    https://secure.php.net/manual/en/function.openssl-random-pseudo-bytes.php
+         * @since  1.3.3 Default $entropy value set to 10000, a warning is triggered if openssl_random_pseudo_bytes is
+         * unable to locate a cryptographically strong algorithm.<br/>
+         *         1.3
          * @codeCoverageIgnore
          */
-        static function getUniqid($hash = 'sha256', $prefix = '', $entropy = 250, $rawOutput = false) {
+        static function getUniqid($hash = 'sha256', $prefix = '', $entropy = 10000, $rawOutput = false) {
             $str = mt_rand(~PHP_INT_MAX, PHP_INT_MAX) . json_encode([$_COOKIE,
                                                                      $_REQUEST,
                                                                      $_FILES,
@@ -217,7 +220,14 @@
                    self::asciiRand($entropy, self::ASCII_ALL);
 
             if (function_exists('\openssl_random_pseudo_bytes')) {
-                $str .= \openssl_random_pseudo_bytes($entropy);
+                $algoStrong = null;
+                $str .= \openssl_random_pseudo_bytes($entropy, $algoStrong);
+
+                if ($algoStrong !== true) {
+                    trigger_error('Please update your openssl & PHP libraries. openssl_random_pseudo_bytes was unable' .
+                                  ' to locate a cryptographically strong algorithm.',
+                                  E_USER_WARNING);
+                }
             } else {
                 trigger_error('The openssl extension is not enabled, therefore the unique ID is not ' .
                               'cryptographically secure.',
