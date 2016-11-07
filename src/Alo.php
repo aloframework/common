@@ -165,7 +165,7 @@
          *
          * @return bool True if the file is found, false if not
          */
-        static function includeIfExists($path) {
+        public static function includeIfExists($path) {
             if (self::isIncludable($path)) {
                 include $path;
 
@@ -186,7 +186,7 @@
          * @return string
          * @since  1.3
          */
-        static function asciiRand($length, $subset = self::ASCII_ALL) {
+        public static function asciiRand($length, $subset = self::ASCII_ALL) {
             switch ($subset) {
                 case self::ASCII_ALPHANUM:
                     $subset = self::$asciiAlphanum;
@@ -227,7 +227,7 @@
          *         1.3
          * @codeCoverageIgnore
          */
-        static function getUniqid($hash = 'sha256', $prefix = '', $entropy = 10000, $rawOutput = false) {
+        public static function getUniqid($hash = 'sha256', $prefix = '', $entropy = 10000, $rawOutput = false) {
             $str = mt_rand(~PHP_INT_MAX, PHP_INT_MAX) . json_encode([$_COOKIE,
                                                                      $_REQUEST,
                                                                      $_FILES,
@@ -277,7 +277,7 @@
          *
          * @return bool True if the file is found, false if not
          */
-        static function includeOnceIfExists($path) {
+        public static function includeOnceIfExists($path) {
             if (self::isIncludable($path)) {
                 include_once $path;
 
@@ -293,7 +293,7 @@
          * @author Art <a.molcanovas@gmail.com>
          * @return bool
          */
-        static function isCliRequest() {
+        public static function isCliRequest() {
             return PHP_SAPI == 'cli' || defined('STDIN');
         }
 
@@ -304,7 +304,7 @@
          * @return bool
          * @since  1.3
          */
-        static function isRegularRequest() {
+        public static function isRegularRequest() {
             return !self::isAjaxRequest() && !self::isCliRequest();
         }
 
@@ -315,7 +315,7 @@
          *
          * @return mixed|null $var if it's set, null if it's not
          */
-        static function get(&$var) {
+        public static function get(&$var) {
             return isset($var) ? $var : null;
         }
 
@@ -328,7 +328,7 @@
          *
          * @return mixed|null The var or null
          */
-        static function nullget(&$var) {
+        public static function nullget(&$var) {
             return self::get($var) ? $var : null;
         }
 
@@ -344,7 +344,7 @@
          *
          * @return mixed $var if available, $planB if not
          */
-        static function ifnull(&$var, $planB, $useNullget = false) {
+        public static function ifnull(&$var, $planB, $useNullget = false) {
             $v = $useNullget ? self::nullget($var) : self::get($var);
 
             return $v !== null ? $v : $planB;
@@ -361,7 +361,7 @@
          * @return mixed
          * @since  1.1
          */
-        static function ifundefined($const, $planB) {
+        public static function ifundefined($const, $planB) {
             return defined($const) ? constant($const) : $planB;
         }
 
@@ -371,7 +371,7 @@
          * @author Art <a.molcanovas@gmail.com>
          * @return bool
          */
-        static function isAjaxRequest() {
+        public static function isAjaxRequest() {
             return self::get($_SERVER['HTTP_X_REQUESTED_WITH']) == 'XMLHttpRequest';
         }
 
@@ -385,7 +385,7 @@
          * @return string
          * @since  1.2
          */
-        static function getFingerprint($hashAlgo = 'sha256') {
+        public static function getFingerprint($hashAlgo = 'sha256') {
             return hash($hashAlgo,
                         '#QramRAN7*s%6n%@x*53jVVPsnrz@5MY$49o^mhJ8HqY%3a09yJnSWg9lBl$O4CKUb&&S%EgYBjhUZEbhquw$keCjR6I%zMcA!Qr' .
                         self::get($_SERVER['HTTP_USER_AGENT']) .
@@ -406,7 +406,7 @@
          * @return bool
          * @since  1.2
          */
-        static function isTraversable($input) {
+        public static function isTraversable($input) {
             return is_array($input) || $input instanceof Traversable;
         }
 
@@ -422,7 +422,7 @@
          * @since  1.3.2 ENT_SUBSTITUTE added<br/>
          *         1.2
          */
-        static function unXss($input) {
+        public static function unXss($input) {
             if (self::isTraversable($input)) {
                 foreach ($input as &$i) {
                     $i = self::unXss($i);
