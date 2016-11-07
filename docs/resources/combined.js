@@ -1,4 +1,21 @@
 
+/*
+ *    Copyright (c) Arturas Molcanovas <a.molcanovas@gmail.com> 2016.
+ *    https://github.com/aloframework/common
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
 var ApiGen = ApiGen || {};
 ApiGen.config = {"options":{"elementDetailsCollapsed":true,"elementsOrder":"natural"},"name":"Twitter Bootstrap theme","templatesPath":"\/home\/art\/.composer\/vendor\/apigen\/apigen\/bin\/..\/..\/..\/..\/vendor\/apigen\/theme-bootstrap\/src","resources":{"\/home\/art\/.composer\/vendor\/apigen\/apigen\/bin\/..\/..\/..\/..\/vendor\/apigen\/theme-bootstrap\/src\/resources":"resources"},"templates":{"overview":{"filename":"index.html","template":"\/home\/art\/.composer\/vendor\/apigen\/apigen\/bin\/..\/..\/..\/..\/vendor\/apigen\/theme-bootstrap\/src\/overview.latte"},"combined":{"filename":"resources\/combined.js","template":"\/home\/art\/.composer\/vendor\/apigen\/apigen\/bin\/..\/..\/..\/..\/vendor\/apigen\/theme-bootstrap\/src\/combined.js.latte"},"elementlist":{"filename":"elementlist.js","template":"\/home\/art\/.composer\/vendor\/apigen\/apigen\/bin\/..\/..\/..\/..\/vendor\/apigen\/theme-bootstrap\/src\/elementlist.js.latte"},"404":{"filename":"404.html","template":"\/home\/art\/.composer\/vendor\/apigen\/apigen\/bin\/..\/..\/..\/..\/vendor\/apigen\/theme-bootstrap\/src\/404.latte"},"package":{"filename":"package-%s.html","template":"\/home\/art\/.composer\/vendor\/apigen\/apigen\/bin\/..\/..\/..\/..\/vendor\/apigen\/theme-bootstrap\/src\/package.latte"},"namespace":{"filename":"namespace-%s.html","template":"\/home\/art\/.composer\/vendor\/apigen\/apigen\/bin\/..\/..\/..\/..\/vendor\/apigen\/theme-bootstrap\/src\/namespace.latte"},"class":{"filename":"class-%s.html","template":"\/home\/art\/.composer\/vendor\/apigen\/apigen\/bin\/..\/..\/..\/..\/vendor\/apigen\/theme-bootstrap\/src\/class.latte"},"constant":{"filename":"constant-%s.html","template":"\/home\/art\/.composer\/vendor\/apigen\/apigen\/bin\/..\/..\/..\/..\/vendor\/apigen\/theme-bootstrap\/src\/constant.latte"},"function":{"filename":"function-%s.html","template":"\/home\/art\/.composer\/vendor\/apigen\/apigen\/bin\/..\/..\/..\/..\/vendor\/apigen\/theme-bootstrap\/src\/function.latte"},"annotationGroup":{"filename":"annotation-group-%s.html","template":"\/home\/art\/.composer\/vendor\/apigen\/apigen\/bin\/..\/..\/..\/..\/vendor\/apigen\/theme-bootstrap\/src\/annotation-group.latte"},"source":{"filename":"source-%s.html","template":"\/home\/art\/.composer\/vendor\/apigen\/apigen\/bin\/..\/..\/..\/..\/vendor\/apigen\/theme-bootstrap\/src\/source.latte"},"tree":{"filename":"tree.html","template":"\/home\/art\/.composer\/vendor\/apigen\/apigen\/bin\/..\/..\/..\/..\/vendor\/apigen\/theme-bootstrap\/src\/tree.latte"},"sitemap":{"filename":"sitemap.xml","template":"\/home\/art\/.composer\/vendor\/apigen\/apigen\/bin\/..\/..\/..\/..\/vendor\/apigen\/theme-bootstrap\/src\/sitemap.xml.latte"},"opensearch":{"filename":"opensearch.xml","template":"\/home\/art\/.composer\/vendor\/apigen\/apigen\/bin\/..\/..\/..\/..\/vendor\/apigen\/theme-bootstrap\/src\/opensearch.xml.latte"},"robots":{"filename":"robots.txt","template":"\/home\/art\/.composer\/vendor\/apigen\/apigen\/bin\/..\/..\/..\/..\/vendor\/apigen\/theme-bootstrap\/src\/robots.txt.latte"}}};
 
