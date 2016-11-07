@@ -1,3 +1,7 @@
+# 2.0
+
+Licenced under Apache-2.0 now.
+
 # 1.3.3 #
 
 The following happened to getUniqid():

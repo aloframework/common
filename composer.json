@@ -3,7 +3,7 @@
   "description": "Common elements of AloFramework",
   "prefer-stable": true,
   "type": "library",
-  "license": "GPL-3.0+",
+  "license": "Apache-2.0",
   "homepage": "https://github.com/aloframework/common",
   "keywords": [
     "PHP",
