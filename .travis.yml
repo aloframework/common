@@ -1,5 +1,10 @@
 language: php
 
+cache:
+  directories:
+    - $HOME/.composer
+    - vendor
+
 php:
   - 7.1
   - 5.4
